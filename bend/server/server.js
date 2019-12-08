@@ -1,5 +1,6 @@
 const express = require('express')
 const upload = require('./upload')
+const singleUpload = require('./upload')
 const cors = require('cors')
 const fs = require('fs')
 const csv = require('csvtojson');
@@ -25,20 +26,24 @@ server.get('/api/getFileByName/:fileName',(req, res)=>{
   console.log(req.params.fileName)
   try {
     const str = __dirname+ `/uploads/${req.params.fileName}`
-    console.log(str);
-    csv().fromFile(str).then(json =>{ console.log(json); res.send(json)})
+   // console.log(str);
+    csv().fromFile(str).then(json =>{ 
+      //console.log(json);
+       res.send(json)})
   } catch (err) {
     res.send(err)
   }
 })
 
 server.get('/api/download/:file', function(req, res){
-  console.log(req.params.file)
+  
   const file = __dirname+`/uploads/${req.params.file}`;
   console.log(file, file+".csv")
   
   res.download(file); 
 });
+
+server.post('/api/updateFile', singleUpload)
 server.listen(8000, () => {
   console.log('Server started!')
 })

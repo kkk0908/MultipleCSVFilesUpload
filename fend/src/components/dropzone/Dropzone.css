@@ -1,9 +1,9 @@
 .Dropzone {
     height: 200px;
-    width: 200px;
+    width: 400px;
     background-color: #fff;
     border: 2px dashed rgb(187, 186, 186);
-    border-radius: 50%;
+    border-radius: 5%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,4 +23,9 @@
   
   .FileInput {
     display: none;
+  }
+  .browse {
+    border: 2px solid gray;
+    padding: 7px;
+    margin: 8px;
   }

@@ -9,7 +9,7 @@
   
   .Content {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     padding-top: 16px;
     box-sizing: border-box;
     width: 100%;

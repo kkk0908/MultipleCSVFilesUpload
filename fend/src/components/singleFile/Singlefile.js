@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import Axios from "axios";
+import './Singlefile.css'
 
 class SingleFile extends Component {
 
   state = {
     singleFileData: [],
-    asc: true
+    asc: true,
+    fileUpload:false
   };
   componentDidMount() {
     Axios.get(
@@ -13,7 +15,7 @@ class SingleFile extends Component {
     )
       .then(data => {
         this.setState({ singleFileData: data.data });
-        console.log(data)
+    
       })
       .catch(err => console.log(err));
   }
@@ -48,6 +50,30 @@ class SingleFile extends Component {
        
     }
    
+     uploadFile = async e => {
+      const files = e.target.files
+      
+      
+      const form = new FormData()
+      
+        form.append('files', files[0], files[0].name)
+      
+      try {
+        let request = await fetch(`http://localhost:8000/api/updateFile`, {
+          method: 'post',
+          body: form,
+        })
+        const response = await request.json()
+        console.log('Response', response)
+      } catch (err) {
+        alert('Error uploading the files')
+        console.log('Error uploading the files', err)
+      }
+    }
+    
+    changeUploadFile = () =>{
+      this.setState({fileUpload: !this.state.uploadFile})
+    } 
   render() {
     var headerData = this.state.singleFileData[0];
     headerData = this.state.singleFileData[0]
@@ -82,18 +108,32 @@ class SingleFile extends Component {
         </tr>
       );
     });
-
+  
     return (
+      <>
+      { 
+        this.state.fileUpload?
+      <div className="card">
+      <h1>File upload</h1>
+      <input type="file" accept=".csv" onChange={e => this.uploadFile(e)} />
+    </div>
+    :
       <div className="newBox">
-        
-        <table>
+      <div className = "anotherFile"> <button onClick = {this.changeUploadFile}>Choose Another File</button></div>
+        <table className="table table-dark">
           <thead>
             <tr>{headerData}</tr>
           </thead>
           <tbody>{bodyData}</tbody>
         </table>
         <a href = {`http://localhost:8000/api/download/${this.props.location.state.file}`}><button> Download File</button></a>
-      </div>
+        
+         
+        </div>
+      }
+        </>
+        
+        
     );
   }
 }

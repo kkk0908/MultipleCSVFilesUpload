@@ -36,7 +36,7 @@ export default class Upload extends Component {
           <img
             className="CheckIcon"
             alt="done"
-            src="baseline-check_circle_outline-24px.svg"
+            src="http://pluspng.com/img-png/png-tick-png-file-tick-mark-icon-png-6619-png-480.png"
             style={{
               opacity:
                 uploadProgress && uploadProgress.state === "done" ? 0.5 : 0
@@ -131,37 +131,36 @@ export default class Upload extends Component {
   render() {
     return (
       <>
-      
-      {this.state.successfullPopup ? <Popup closePopup = {this.closePopup}/>:
-      <div className="Card">
-        <div className="Upload">
-          <span className="Title">Upload Files</span>
-          <div className="Content">
-            <div>
-              <Dropzone
-                onFilesAdded={this.onFilesAdded}
-                disabled={
-                  this.state.uploading || this.state.successfullUploaded
-                }
-              />
-            </div>
-            <div className="Files">
-              {this.state.files.map(file => {
-                return (
-                  <div key={file.name} className="Row">
-                    <span className="Filename">{file.name}</span>
-                    {this.renderProgress(file)}
-                  </div>
-                );
-              })}
+        {this.state.successfullPopup ? (
+          <Popup closePopup={this.closePopup} />
+        ) : (
+          <div className="Card">
+            <div className="Upload">
+              <span className="Title">Upload Files</span>
+              <div className="Content">
+                <div>
+                  <Dropzone
+                    onFilesAdded={this.onFilesAdded}
+                    disabled={
+                      this.state.uploading || this.state.successfullUploaded
+                    }
+                  />
+                </div>
+                <div className="Files">
+                  {this.state.files.map(file => {
+                    return (
+                      <div key={file.name} className="Row">
+                        <span className="Filename">{file.name}</span>
+                        {this.renderProgress(file)}
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="Actions">{this.renderActions()}</div>
             </div>
           </div>
-          <div className="Actions">{this.renderActions()}</div>
-        </div>
-        
-      </div>
-            }
-            
+        )}
       </>
     );
   }

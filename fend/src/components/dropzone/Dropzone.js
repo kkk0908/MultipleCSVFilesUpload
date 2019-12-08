@@ -79,12 +79,9 @@ class Dropzone extends Component {
           accept=".csv"
           onChange={this.onFilesAdded}
         />
-        <img
-          alt="upload"
-          className="Icon"
-          src="baseline-cloud_upload-24px.svg"
-        />
-        <span>Upload Files</span>
+       <span>Drag & Drop</span>
+       <span>or</span>
+       <span className="browse">Browse Here</span>
       </div>
     )
   }
